@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Current request.path {{ request.path}}</h1>
+    {% if user.is_authenticated %}
+    <p>Authenticated as
+        <pre>
+            Name: {{ user.get_full_name}}
+            Email: {{ user.get_email}}
+            Id: {{ user.get_id}}
+        </pre>
+    </p>
+    <p>You can <a href="{% url 'logout' %}?next={% url 'auth:open' %}">Logout</a></p>
+    {% else %}
+    <p>You are not logged in</p>
+    <p>You can <a href="{% url 'login' %}?next={{ request.path }}">Login</a></p>
+    {% endif %}
+</body>
+</html>
