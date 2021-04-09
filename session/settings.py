@@ -40,9 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+     # Extensions - installed with pip3 / requirements.txt
+     'crispy_forms',
     
     # my apps
-    'home.apps.HomeConfig'
+    'home.apps.HomeConfig',
+    'authz.apps.AuthzConfig',
     
 ]
 
@@ -125,3 +129,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGOUT_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/'
