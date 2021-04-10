@@ -6,4 +6,5 @@ app_name='form'
 urlpatterns = [
     path('', TemplateView.as_view(template_name='form/main.html'), name='main'),
     path('example', views.example),
+    path('create', views.SimpleCreate.as_view()),
 ]
