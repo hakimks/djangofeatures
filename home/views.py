@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from django.conf import settings
+from django.views.generic import TemplateView
 
 # Create your views here.
 
@@ -16,3 +17,6 @@ class HomeView(View):
         }
 
         return render(request, 'home/main.html', context)
+
+class AboutView(TemplateView):
+    template_name = "home/about.html"
