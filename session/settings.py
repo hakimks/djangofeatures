@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     # my apps
     'home.apps.HomeConfig',
     'authz.apps.AuthzConfig',
-    'form.apps.FormConfig'
+    'form.apps.FormConfig',
+    'autos.apps.AutosConfig'
     
 ]
 

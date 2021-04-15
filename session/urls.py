@@ -23,5 +23,6 @@ urlpatterns = [
     path('session/', include('sessionapp.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('authz/', include('authz.urls')),
-    path('form/', include('form.urls'))
+    path('form/', include('form.urls')),
+    path('autos/', include('autos.urls'))
 ]
