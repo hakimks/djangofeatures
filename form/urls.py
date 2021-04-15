@@ -7,4 +7,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='form/main.html'), name='main'),
     path('example', views.example),
     path('create', views.SimpleCreate.as_view()),
+    path('update', views.SimpleUpdate.as_view()),
+    path('success', views.success, name="success"),
+    path('validate', views.Validate.as_view())
 ]
