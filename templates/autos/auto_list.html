@@ -17,14 +17,14 @@
 {% endif %}
 <p>
     {% if make_count > 0 %}
-        <a href="{% url 'auto:auto_create' %}">Add an auto</a>
+        <a href="{% url 'autos:auto_create' %}">Add an auto</a>
     {% else %}
         <p>Please add a make before you add an auto</p>
     {% endif %}
 </p>
 <p>
-    <a href="{% url 'auto:make_list' %}">View Makes</a> ({{ make_count }}) |
-    <a href="{% url 'auto:make_create' %}">Add a make</a>
+    <a href="{% url 'autos:make_list' %}">View Makes</a> ({{ make_count }}) |
+    <a href="{% url 'autos:make_create' %}">Add a make</a>
 </p>
 
 {% endblock %}
