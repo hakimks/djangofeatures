@@ -12,28 +12,67 @@ from .forms import MakeForm
 
 # Create your views here.
 
-class MainView(View):
+class MainView(LoginRequiredMixin, View):
     def get(self, request):
         mc = Make.objects.all().count()
         al = Auto.objects.all()
 
         ctx = {'make_count': mc, 'auto_list': al}
 
-        return render(request, 'autos/auto-list.html', ctx)
+        return render(request, 'autos/auto_list.html', ctx)
 
-class MakeView(View):
-    pass
-class MakeCreate(View):
+class MakeView(LoginRequiredMixin, View):
+    def get(self, request):
+        ml = Make.objects.all()
+        ctx = {'make_list': ml}
+        return render(request, 'autos/make_list.html', ctx)
+
+# We use reverse_lazy() because we are in "constructor attribute" code
+# that is run before urls.py is completely loaded
+class MakeCreate(LoginRequiredMixin, View):
+    template = 'autos/make_form.html'
+    success_url = reverse_lazy('autos:all')
+
+    def get(self, request):
+        form = MakeForm()
+        ctx = {'form':form}
+        return render(request, self.template, ctx)
+    
+    def post(self, request):
+        form = MakeForm(request.POST)
+        if not form.is_valid():
+            ctx = {'form':form}
+            return render(request, self.template, ctx)
+        make = form.save()
+        return redirect(self.success_url)
+
+
+class MakeUpdate(LoginRequiredMixin, View):
+    model = Make
+    success_url = reverse_lazy('autos:all')
+    template = 'autos/make_form.html'
+    def get(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        form = MakeForm(instance=make)
+        ctx = {'form':form}
+        return render(request, self.template, ctx)
+
+    def post(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        form = MakeForm(request.POST, instance = make)
+        if not form.is_valid():
+            ctx = {'form': form}
+            return render(request, self.template, ctx)
+        
+        form.save()
+        return redirect(self.success_url)
+
+class MakeDelete(LoginRequiredMixin, View):
     pass
 
-class MakeUpdate(View):
+class AutoCreate(LoginRequiredMixin, View):
     pass
-class MakeDelete(View):
+class AutoUpdate(LoginRequiredMixin, View):
     pass
-
-class AutoCreate(View):
-    pass
-class AutoUpdate(view):
-    pass
-class AutoDelete(View):
+class AutoDelete(LoginRequiredMixin, View):
     pass
