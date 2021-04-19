@@ -83,9 +83,28 @@ class MakeDelete(LoginRequiredMixin, View):
         make.delete()
         return redirect(self.success_url)
 
-class AutoCreate(LoginRequiredMixin, View):
-    pass
-class AutoUpdate(LoginRequiredMixin, View):
-    pass
-class AutoDelete(LoginRequiredMixin, View):
-    pass
+# Take the easy way out on the main table
+# These views do not need a form because CreateView, etc.
+# Build a form object dynamically based on the fields
+# value in the constructor attributes
+
+class AutoCreate(LoginRequiredMixin, CreateView):
+    model = Auto
+    fields = '__all__'
+    success_url = reverse_lazy('autos:all')
+
+class AutoUpdate(LoginRequiredMixin, UpdateView):
+    model = Auto
+    fields = '__all__'
+    ssuccess_url = reverse_lazy('autos:all')
+
+class AutoDelete(LoginRequiredMixin, DeleteView):
+    model = Auto
+    fields = '__all__'
+    success_url = reverse_lazy('autos:all')
+
+
+# We use reverse_lazy rather than reverse in the class attributes
+# because views.py is loaded by urls.py and in urls.py as_view() causes
+# the constructor for the view class to run before urls.py has been
+# completely loaded and urlpatterns has been processed.
