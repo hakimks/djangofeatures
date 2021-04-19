@@ -68,7 +68,20 @@ class MakeUpdate(LoginRequiredMixin, View):
         return redirect(self.success_url)
 
 class MakeDelete(LoginRequiredMixin, View):
-    pass
+    model = Make
+    success_url = reverse_lazy('autos:all')
+    template = 'autos/make_confirm_delete.html'
+
+    def get(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        form = MakeForm(instance=make)
+        cxt = {'form':form}
+        return render(request, self.template, cxt)
+
+    def post(self, request, pk):
+        make = get_object_or_404(self.model, pk=pk)
+        make.delete()
+        return redirect(self.success_url)
 
 class AutoCreate(LoginRequiredMixin, View):
     pass
